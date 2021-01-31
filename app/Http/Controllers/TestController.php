@@ -18,9 +18,9 @@ class TestController extends Controller
 
     public function getTestByID($id){
 
-        //$tst=TestModel::query()->where('id',$id)->get();
-        $tst=TestModel::all();
-        dd($tst);
+        $tst=TestModel::with('questions')->get();
+        echo($tst);
+
        // return view('main',compact('data','tst'));
     }
 
