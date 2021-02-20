@@ -18,17 +18,19 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/','MainController@index');
-Route::get('/test/{id}','TestController@getTestByID');
+
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
-
-
+Route::prefix('/test')->group(function (){
+    Route::get('/','TestController@get');
+    Route::get('/{id}','TestController@getByID');
+});
 
 Route::prefix('/vacancy')->group(function (){
-    Route::get('/',['uses'=>'VacancyController@get']);
-    Route::get('/{Id}',['uses'=>'VacancyController@getByID'])->where(['Id'=>'[0-9+]']);
+    Route::get('/','VacancyController@get');
+    Route::get('/{id}',['uses'=>'VacancyController@getByID'])->where(['Id'=>'[0-9+]']);
     Route::post('/add',['uses'=>'VacancyController@create']);
     Route::delete('/delete/{Id}',['uses'=>'VacancyController@delete'])->where(['Id'=>'[0-9+]']);
     Route::put('/update/{Id}',['uses'=>'CompanyController@update'])->where(['Id'=>'[0-9+]']);
