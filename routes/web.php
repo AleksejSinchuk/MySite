@@ -26,6 +26,8 @@ Route::group(['prefix' => 'admin'], function () {
 Route::prefix('/test')->group(function (){
     Route::get('/','TestController@get');
     Route::get('/{id}','TestController@getByID');
+    Route::delete('/delete/{Id}',['uses'=>'TestController@delete'])->where(['Id'=>'[0-9+]']);
+    Route::put('/update',['uses'=>'TestController@update']);
 });
 
 Route::prefix('/vacancy')->group(function (){
@@ -33,6 +35,6 @@ Route::prefix('/vacancy')->group(function (){
     Route::get('/{id}',['uses'=>'VacancyController@getByID'])->where(['Id'=>'[0-9+]']);
     Route::post('/add',['uses'=>'VacancyController@create']);
     Route::delete('/delete/{Id}',['uses'=>'VacancyController@delete'])->where(['Id'=>'[0-9+]']);
-    Route::put('/update/{Id}',['uses'=>'CompanyController@update'])->where(['Id'=>'[0-9+]']);
+    Route::put('/update',['uses'=>'CompanyController@update']);
 });
 
